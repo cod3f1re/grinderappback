@@ -4,7 +4,7 @@ from model_utils.models import TimeStampedModel, SoftDeletableModel
 
 
 # Create your models here.
-class User(TimeStampedModel, SoftDeletableModel):
+class Users(TimeStampedModel, SoftDeletableModel):
     name = models.CharField(max_length=50, null=False, blank=True)
     surname = models.CharField(max_length=50, null=False, blank=True)
     username = models.CharField(max_length=50, null=False, blank=True)
