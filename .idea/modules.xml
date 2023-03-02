@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/grinderappback.iml" filepath="$PROJECT_DIR$/.idea/grinderappback.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/grinderback.iml" filepath="$PROJECT_DIR$/.idea/grinderback.iml" />
     </modules>
   </component>
 </project>
