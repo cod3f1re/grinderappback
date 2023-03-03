@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(router.urls)),
     path('login/', login, name='api-token-auth'),
-    path('products/', include('product.urls'), name='api-token-auth'),
+    path('products/', include('product.urls'), name='products'),
 ]
