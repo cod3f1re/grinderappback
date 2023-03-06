@@ -1,10 +1,9 @@
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import serializers, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from product.models import Product
-from product.serializers import ProductSerializer
+from product.models import Product, Category
+from product.serializers import ProductSerializer, CategorySerializer
 
 
 # Create your views here.
@@ -23,18 +22,40 @@ def api_overview(request):
 
 
 @api_view(['POST'])
-def add_items(request):
+def add_products(request):
     item = ProductSerializer(data=request.data)
 
-    # Se valida si el usuario existe
+    # Se valida si el producto existe
     if Product.objects.filter(**request.data).exists():
-        raise serializers.ValidationError('This data already exists')
+        raise serializers.ValidationError('El producto ya existe en la tienda')
 
-    # Se valida si el usuario es valido
+    # Se valida si el producto es valido
     if item.is_valid():
-        # Se guarda el usuario
+        # Se guarda el producto
         item.save()
-        return Response(item.data, status=status.HTTP_201_CREATED)
+        return Response({"status": "success", "data": item.data, "message": "Producto creado exitosamente"},
+                        status=status.HTTP_201_CREATED)
     else:
         # Regresa un error 404 si es invalido
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"status": "error", "message": "Hay un error con el producto", "error": item.errors},
+                        status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
+def add_category(request):
+    item = CategorySerializer(data=request.data)
+
+    # Se valida si la categoria existe
+    if Category.objects.filter(**request.data).exists():
+        raise serializers.ValidationError('La categoria ya existe en la tienda')
+
+    # Se valida si la categoria es valida
+    if item.is_valid():
+        # Se guarda la categoria
+        item.save()
+        return Response({"status": "success", "data": item.data, "message": "Categoria creada exitosamente"},
+                        status=status.HTTP_201_CREATED)
+    else:
+        # Regresa un error 404 si es invalida
+        return Response({"status": "error", "message": "Hay un error con el producto", "error": item.errors},
+                        status=status.HTTP_404_NOT_FOUND)
