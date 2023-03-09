@@ -66,12 +66,12 @@ class Order(models.Model):
         db_table = 'order'  # Le doy de nombre 'order' a nuestra tabla en la Base de Datos
 
     def __str__(self):
-        return "%s %s %s" % (self.title, self.price, self.description)
+        return "%s %s %s" % (self.orderDate, self.shippedDate, self.status)
 
 
 class OrderDetail(models.Model):
     num_detail = models.CharField(max_length=30)
-    order = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.IntegerField()
